@@ -18,7 +18,7 @@ internal fun formatString(string: String, placeholders: Map<String, String>? = n
 
 fun TextComponent.format(placeholders: Map<String, String>? = null): TextComponent {
     text = formatString(text, placeholders)
-    extra.forEach { (it as TextComponent).format(placeholders) }
+    extra?.forEach { (it as TextComponent).format(placeholders) }
     insertion = formatString(insertion, placeholders)
     clickEvent = ClickEvent(clickEvent.action, formatString(clickEvent.value, placeholders))
     hoverEvent = HoverEvent(hoverEvent.action, hoverEvent.value.map {
