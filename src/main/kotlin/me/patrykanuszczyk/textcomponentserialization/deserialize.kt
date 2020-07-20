@@ -27,12 +27,13 @@ fun deserializeTextComponent(obj: Any?): TextComponent? {
 
     component.text = map["text"] as String? ?: ""
 
-    component.extra = (map["extra"] as List<*>)
-        .map {
-            deserializeTextComponent(
-                it ?: throw NullPointerException("Extra object is null!")
-            )
-        }
+    if (map["extra"] != null)
+        component.extra = (map["extra"] as List<*>)
+            .map {
+                deserializeTextComponent(
+                    it ?: throw NullPointerException("Extra object is null!")
+                )
+            }
 
     val color = deserializeChatColor(map["color"])
 
@@ -58,7 +59,7 @@ fun deserializeTextComponent(obj: Any?): TextComponent? {
  * @since 1.0
  */
 fun deserializeChatColor(obj: Any?): ChatColor? {
-    if(obj == null) return null
+    if (obj == null) return null
     require(obj is String) { "Color has to be a string!" }
 
     val canonicalName = obj
@@ -92,7 +93,7 @@ fun deserializeClickEvent(obj: Any?): ClickEvent? {
  * @since 1.0
  */
 fun deserializeHoverEvent(obj: Any?): HoverEvent? {
-    if(obj == null) return null
+    if (obj == null) return null
     require(obj is ConfigurationSection) { "Hover event has to be a configuration section or null!" }
 
     val actionString = obj.getString("action")
@@ -112,7 +113,7 @@ fun deserializeHoverEvent(obj: Any?): HoverEvent? {
  * @since 1.0
  */
 fun deserializeBook(obj: Any?): ItemStack? {
-    val map = when(obj) {
+    val map = when (obj) {
         null -> return null
         is ConfigurationSection -> obj.getValues(true)
         is Map<*, *> -> obj.toMapOf<String, Any>()
@@ -141,7 +142,7 @@ fun deserializeBook(obj: Any?): ItemStack? {
  * @since 1.0
  */
 fun deserializeBookGeneration(obj: Any?): BookMeta.Generation? {
-    if(obj == null) return null
+    if (obj == null) return null
     require(obj is String) { "Book generation has to be a string!" }
 
     val canonicalName = obj
