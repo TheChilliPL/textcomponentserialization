@@ -1,4 +1,12 @@
 # TextComponent serialization
+![GitHub top language](https://img.shields.io/github/languages/top/thechillipl/textcomponentserialization?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues-raw/thechillipl/textcomponentserialization?style=for-the-badge)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/thechillipl/textcomponentserialization?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/thechillipl/textcomponentserialization?style=for-the-badge)
+
+![MPL 2.0](https://img.shields.io/github/license/thechillipl/textcomponentserialization?style=for-the-badge)
+![JitPack](https://img.shields.io/jitpack/v/github/TheChilliPL/textcomponentserialization?style=for-the-badge)
+
 TextComponent serializer library for Spigot!
 
 ## How to include
