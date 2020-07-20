@@ -20,7 +20,7 @@ fun TextComponent.format(placeholders: Map<String, String>? = null): TextCompone
     val newComponent = TextComponent(this)
     if (text != null) newComponent.text = formatString(text, placeholders)
     //extra?.forEach { newComponent.addExtra((it as TextComponent).format(placeholders)) }
-    extra = extra.map { (it as TextComponent).format(placeholders) }
+    extra = extra?.map { (it as TextComponent).format(placeholders) }
     if (insertion != null) newComponent.insertion = formatString(insertion, placeholders)
     if (clickEvent != null)
         newComponent.clickEvent = ClickEvent(clickEvent.action, formatString(clickEvent.value, placeholders))
