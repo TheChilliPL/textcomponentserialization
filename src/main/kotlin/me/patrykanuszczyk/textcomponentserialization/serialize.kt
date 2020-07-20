@@ -4,7 +4,6 @@ import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.chat.TextComponent
-import javax.xml.soap.Text
 
 @JvmName("serializeTextComponent")
 fun TextComponent?.serialize(): Any? {
@@ -35,23 +34,11 @@ fun TextComponent?.serialize(): Any? {
         map += "insertion" to insertion
 
     if (clickEvent != null) {
-//        map += "clickEvent" to mapOf(
-//            "action" to clickEvent.action.name,
-//            "value" to clickEvent.value
-//        )
-
         map += "clickEvent" to serializeClickEvent(
             clickEvent
         )!!
     }
     if (hoverEvent != null) {
-//        map += "hoverEvent" to mapOf(
-//            "action" to hoverEvent.action.name,
-//            "value" to hoverEvent.value.map {
-//                (it as TextComponent).serialize()
-//            }
-//        )
-
         map += "hoverEvent" to serializeHoverEvent(
             hoverEvent
         )!!
