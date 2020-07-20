@@ -8,7 +8,7 @@ internal inline fun <reified K, reified V> Map<*, *>.toMapOf(): MutableMap<K, V>
         require(key is K) { "Key $key with value $value cannot be converted to ${K::class.qualifiedName}!" }
         require(value is V) { "Value $value of key $key cannot be converted to ${V::class.qualifiedName}!" }
 
-        map += key to value
+        map[key] = value
     }
 
     return map
