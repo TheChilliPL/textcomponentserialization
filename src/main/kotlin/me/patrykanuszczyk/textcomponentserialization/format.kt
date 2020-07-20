@@ -4,7 +4,6 @@ import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.ChatColor
-import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BookMeta
 
@@ -18,9 +17,10 @@ internal fun formatString(string: String, placeholders: Map<String, String>? = n
 }
 
 fun TextComponent.format(placeholders: Map<String, String>? = null): TextComponent {
-    val newComponent = TextComponent()
+    val newComponent = TextComponent(this)
     if (text != null) newComponent.text = formatString(text, placeholders)
-    extra?.forEach { newComponent.addExtra((it as TextComponent).format(placeholders)) }
+    //extra?.forEach { newComponent.addExtra((it as TextComponent).format(placeholders)) }
+    extra = extra.map { (it as TextComponent).format(placeholders) }
     if (insertion != null) newComponent.insertion = formatString(insertion, placeholders)
     if (clickEvent != null)
         newComponent.clickEvent = ClickEvent(clickEvent.action, formatString(clickEvent.value, placeholders))
@@ -36,7 +36,7 @@ fun formatBook(book: ItemStack?, placeholders: Map<String, String>? = null): Ite
 
     val oldMeta = book.itemMeta as BookMeta
 
-    val newBook = ItemStack(Material.WRITTEN_BOOK)
+    val newBook = ItemStack(book)
     
     val meta = newBook.itemMeta as BookMeta
     meta.title = formatString(oldMeta.title, placeholders)

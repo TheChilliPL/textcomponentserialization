@@ -36,8 +36,8 @@ fun deserializeTextComponent(obj: Any?): TextComponent? {
             }
 
     val color = deserializeChatColor(map["color"])
-
     component.color = color
+
     component.setBold(map["bold"] as Boolean?)
     component.setItalic(map["italic"] as Boolean?)
     component.setUnderlined(map["underlined"] as Boolean?)
