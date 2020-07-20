@@ -4,6 +4,7 @@ import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.ChatColor
+import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BookMeta
 
@@ -45,7 +46,9 @@ fun formatBook(book: ItemStack?, placeholders: Map<String, String>? = null): Ite
         }
     }
 
-    book.itemMeta = meta
+    val newBook = ItemStack(Material.WRITTEN_BOOK)
 
-    return book
+    newBook.itemMeta = meta
+
+    return newBook
 }
