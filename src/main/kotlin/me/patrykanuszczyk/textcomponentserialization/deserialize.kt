@@ -131,6 +131,8 @@ fun deserializeBook(obj: Any?): ItemStack? {
         arrayOf(deserializeTextComponent(it))
     }
 
+    stack.itemMeta = meta
+
     return stack
 }
 
