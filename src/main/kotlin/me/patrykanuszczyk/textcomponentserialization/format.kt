@@ -18,35 +18,36 @@ internal fun formatString(string: String, placeholders: Map<String, String>? = n
 }
 
 fun TextComponent.format(placeholders: Map<String, String>? = null): TextComponent {
-    if (text != null) text = formatString(text, placeholders)
-    extra?.forEach { (it as TextComponent).format(placeholders) }
-    if (insertion != null) insertion = formatString(insertion, placeholders)
+    val newComponent = TextComponent()
+    if (text != null) newComponent.text = formatString(text, placeholders)
+    extra?.forEach { newComponent.addExtra((it as TextComponent).format(placeholders)) }
+    if (insertion != null) newComponent.insertion = formatString(insertion, placeholders)
     if (clickEvent != null)
-        clickEvent = ClickEvent(clickEvent.action, formatString(clickEvent.value, placeholders))
+        newComponent.clickEvent = ClickEvent(clickEvent.action, formatString(clickEvent.value, placeholders))
     if (hoverEvent != null)
-        hoverEvent = HoverEvent(hoverEvent.action, hoverEvent.value.map {
+        newComponent.hoverEvent = HoverEvent(hoverEvent.action, hoverEvent.value.map {
             (it as TextComponent).format(placeholders)
         }.toTypedArray())
-    return this
+    return newComponent
 }
 
 fun formatBook(book: ItemStack?, placeholders: Map<String, String>? = null): ItemStack? {
     if (book == null) return null
 
-    val meta = book.itemMeta as BookMeta
-
-    meta.apply {
-        if(title!=null)title = formatString(title, placeholders)
-        if(author!=null)author = formatString(author, placeholders)
-
-        spigot().pages = spigot().pages.map { page ->
-            page.map { component ->
-                (component as TextComponent).format(placeholders)
-            }.toTypedArray()
-        }
-    }
+    val oldMeta = book.itemMeta as BookMeta
 
     val newBook = ItemStack(Material.WRITTEN_BOOK)
+    
+    val meta = newBook.itemMeta as BookMeta
+    meta.title = formatString(oldMeta.title, placeholders)
+    meta.author = formatString(oldMeta.author, placeholders)
+    meta.generation = oldMeta.generation
+
+    meta.spigot().addPage(*oldMeta.spigot().pages.map { page ->
+        page.map {
+            (it as TextComponent).format(placeholders)
+        }.toTypedArray()
+    }.toTypedArray())
 
     newBook.itemMeta = meta
 
