@@ -74,16 +74,20 @@ fun deserializeChatColor(obj: Any?): ChatColor? {
  * @since 1.0
  */
 fun deserializeClickEvent(obj: Any?): ClickEvent? {
-    if (obj == null) return null
-    require(obj is ConfigurationSection) { "Click event has to be a configuration section or null!" }
+    val map = when(obj) {
+        null -> return null
+        is ConfigurationSection -> obj.getValues(false)
+        is Map<*,*> -> obj
+        else -> throw IllegalArgumentException("Couldn't deserialize click event from ${obj::class.qualifiedName}!")
+    }.toMapOf<String, String>()
 
-    val actionString = obj.getString("action")
+    val actionString = map["action"] ?: throw NullPointerException("No action specified for click event!")
     val actionCanonicalName = actionString
         .replace(' ', '_')
         .toUpperCase()
     val action = ClickEvent.Action.valueOf(actionCanonicalName)
 
-    val value = obj.getString("value")
+    val value = map["value"]
 
     return ClickEvent(action, value)
 }
@@ -93,17 +97,21 @@ fun deserializeClickEvent(obj: Any?): ClickEvent? {
  * @since 1.0
  */
 fun deserializeHoverEvent(obj: Any?): HoverEvent? {
-    if (obj == null) return null
-    require(obj is ConfigurationSection) { "Hover event has to be a configuration section or null!" }
+    val map = when(obj) {
+        null -> return null
+        is ConfigurationSection -> obj.getValues(true)
+        is Map<*,*> -> obj
+        else -> throw IllegalArgumentException("Couldn't deserialize click event from ${obj::class.qualifiedName}!")
+    }.toMapOf<String, Any>()
 
-    val actionString = obj.getString("action")
+    val actionString = map["action"] as String
     val actionCanonicalName = actionString
         .replace(' ', '_')
         .toUpperCase()
     val action = HoverEvent.Action.valueOf(actionCanonicalName)
 
     val value =
-        deserializeTextComponent(obj.get("value"))
+        deserializeTextComponent(map["value"])
 
     return HoverEvent(action, arrayOf(value))
 }
