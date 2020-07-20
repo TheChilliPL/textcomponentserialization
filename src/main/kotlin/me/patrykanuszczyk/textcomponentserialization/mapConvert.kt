@@ -1,4 +1,4 @@
-package me.patrykanuszczyk.spigot.textcomponentserialization
+package me.patrykanuszczyk.textcomponentserialization
 
 @JvmSynthetic
 internal inline fun <reified K, reified V> Map<*, *>.toMapOf(): MutableMap<K, V> {

@@ -1,4 +1,4 @@
-package me.patrykanuszczyk.spigot.textcomponentserialization
+package me.patrykanuszczyk.textcomponentserialization
 
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
@@ -40,7 +40,9 @@ fun TextComponent?.serialize(): Any? {
 //            "value" to clickEvent.value
 //        )
 
-        map += "clickEvent" to serializeClickEvent(clickEvent)!!
+        map += "clickEvent" to serializeClickEvent(
+            clickEvent
+        )!!
     }
     if (hoverEvent != null) {
 //        map += "hoverEvent" to mapOf(
@@ -50,7 +52,9 @@ fun TextComponent?.serialize(): Any? {
 //            }
 //        )
 
-        map += "hoverEvent" to serializeHoverEvent(hoverEvent)!!
+        map += "hoverEvent" to serializeHoverEvent(
+            hoverEvent
+        )!!
     }
 
     if (map.keys.size == 1) {

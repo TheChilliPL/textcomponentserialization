@@ -1,4 +1,4 @@
-package me.patrykanuszczyk.spigot.textcomponentserialization
+package me.patrykanuszczyk.textcomponentserialization
 
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
@@ -38,8 +38,10 @@ fun deserializeTextComponent(obj: Any?): TextComponent? {
 
     component.insertion = map["insertion"] as String?
 
-    component.clickEvent = deserializeClickEvent(map["clickEvent"])
-    component.hoverEvent = deserializeHoverEvent(map["hoverEvent"])
+    component.clickEvent =
+        deserializeClickEvent(map["clickEvent"])
+    component.hoverEvent =
+        deserializeHoverEvent(map["hoverEvent"])
 
     return component
 }
@@ -80,7 +82,8 @@ fun deserializeHoverEvent(obj: Any?): HoverEvent? {
         .toUpperCase()
     val action = HoverEvent.Action.valueOf(actionCanonicalName)
 
-    val value = deserializeTextComponent(obj.get("value"))
+    val value =
+        deserializeTextComponent(obj.get("value"))
 
     return HoverEvent(action, arrayOf(value))
 }
