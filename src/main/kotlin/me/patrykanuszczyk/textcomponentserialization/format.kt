@@ -7,8 +7,7 @@ import org.bukkit.ChatColor
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BookMeta
 
-@JvmSynthetic
-internal fun formatString(string: String, placeholders: Map<String, String>? = null): String {
+fun formatString(string: String, placeholders: Map<String, String>? = null): String {
     var stringFormatted = string
     placeholders?.forEach { (key, value) ->
         stringFormatted = stringFormatted.replace("{$key}", value, true)
