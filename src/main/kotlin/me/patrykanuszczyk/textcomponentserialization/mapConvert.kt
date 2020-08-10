@@ -1,7 +1,6 @@
 package me.patrykanuszczyk.textcomponentserialization
 
-@JvmSynthetic
-internal inline fun <reified K, reified V> Map<*, *>.toMapOf(): MutableMap<K, V> {
+inline fun <reified K, reified V> Map<*, *>.toMapOf(): MutableMap<K, V> {
     val map = mutableMapOf<K, V>()
 
     for ((key, value) in this) {

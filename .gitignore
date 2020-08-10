@@ -8,5 +8,5 @@ gradle-app.setting
 .gradletasknamecache
 
 # IntelliJ IDEA
-/.idea/
+/.idea/*
 !/.idea/codeStyles
